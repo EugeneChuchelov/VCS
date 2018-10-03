@@ -1,13 +1,10 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE organization SYSTEM "organization.dtd">
-
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <organization name="Computer Fixing">
     <department name="Managing">
         <employee firstname="Igor" secondname="Teleastrov">
-            <hiredate>24-12-2016</hiredate>
-            <salary>54000</salary>
-            <jobtitle value="head"/>
-        </employee>
+        <hiredate>24-12-2016</hiredate>
+        <salary>54000</salary>
+        <jobtitle value="head"/>
         <employee firstname="Vladimir" secondname="Dikobrasov">
             <hiredate>13-02-2017</hiredate>
             <salary>31000</salary>
@@ -24,7 +21,6 @@
             <jobtitle value="manager"/>
         </employee>
     </department>
-
     <department name="First Engineering">
         <employee firstname="Alisa" secondname="Karindos">
             <hiredate>21-08-2012</hiredate>
@@ -42,7 +38,6 @@
             <jobtitle value="engineer"/>
         </employee>
     </department>
-
     <department name="Second Engineering">
         <employee firstname="Patrikey" secondname="Evlampov">
             <hiredate>24-11-2017</hiredate>

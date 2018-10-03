@@ -1,66 +1,139 @@
 package PO63.Chuchelov.wdad.learn.xml;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import XMLClasses.*;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
+import javax.xml.bind.*;
+
 
 public class XmlTask {
-    private Document document;
+    //private Organization organization;
+    private String filepath;
 
     public XmlTask(String filepath) {
-        File xmlFile = new File(filepath);
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder;
+        this.filepath = filepath;
+        System.setProperty("javax.xml.accessExternalDTD", "all");
+    }
 
+    private void Marshal(Organization organization){
         try {
-            builder = factory.newDocumentBuilder();
-            document = builder.parse(xmlFile);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+            JAXBContext context = JAXBContext.newInstance(Organization.class);
+            Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+            OutputStream os = new FileOutputStream(filepath);
+            marshaller.marshal(organization, os);
+            os.close();
         }
+        catch (JAXBException e) {e.printStackTrace();}
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        catch (IOException e) {e.printStackTrace();}
+    }
+
+    private Organization Unmarshal(){
+        Organization organization = null;
+        try {
+            JAXBContext context = JAXBContext.newInstance(Organization.class);
+            InputStream is = new FileInputStream(filepath);
+            Unmarshaller unmarshaller = context.createUnmarshaller();
+            organization = (Organization) unmarshaller.unmarshal(is);
+            is.close();
+        }
+        catch (JAXBException e) {e.printStackTrace();}
+        catch (FileNotFoundException e) {e.printStackTrace();}
+        catch (IOException e) {e.printStackTrace();}
+
+        return organization;
     }
 
     public int salaryAverage(){
-        NodeList nodes = document.getElementsByTagName("salary");
+        Organization organization = Unmarshal();
 
         int sum = 0;
+        int count = 0;
+        Salary salary;
 
-        for (int i = 0; i < nodes.getLength(); i++){
-            sum += Integer.parseInt(nodes.item(i).getNodeValue());
+        for (Department department : organization.getDepartment() ){
+            for(Employee employee : department.getEmployee()){
+                salary = (Salary) employee.getHiredateOrSalaryOrJobtitle().get(1);
+                sum += salary.getvalue();
+                count++;
+            }
         }
 
-        return sum/nodes.getLength();
+        return sum/count;
     }
 
     public int salaryAverage(String departmentName){
-        return 0;
+        Organization organization = Unmarshal();
+
+        int sum = 0;
+        int count = 0;
+        Salary salary;
+
+        for (Department department : organization.getDepartment() ){
+            if(department.getName().equals(departmentName)){
+                for(Employee employee : department.getEmployee()){
+                    salary = (Salary) employee.getHiredateOrSalaryOrJobtitle().get(1);
+                    sum += salary.getvalue();
+                    count++;
+                }
+                break;
+            }
+        }
+
+        return sum/count;
     }
 
-    public void setJobTitile(String firstName, String
-            secondName, String newJobTitle){
+    public void setJobTitile(String firstName, String secondName, String newJobTitle){
+        Organization organization = Unmarshal();
+        Jobtitle jobtitle;
 
+        outerCycle: for (Department department : organization.getDepartment() ){
+            for(Employee employee : department.getEmployee()){
+                if(employee.getFirstname().equals(firstName) &&
+                        employee.getSecondname().equals(secondName)){
+                    jobtitle = (Jobtitle) employee.getHiredateOrSalaryOrJobtitle().get(2);
+                    jobtitle.setValue(newJobTitle);
+                    break outerCycle;
+                }
+            }
+        }
+
+        Marshal(organization);
     }
 
-    public void setSalary(String firstName, String
-            secondName, int newSalary){
+    public void setSalary(String firstName, String secondName, int newSalary){
+        Organization organization = Unmarshal();
+        Salary salary;
 
+        outerCycle: for (Department department : organization.getDepartment() ){
+            for(Employee employee : department.getEmployee()){
+                if(employee.getFirstname().equals(firstName) &&
+                        employee.getSecondname().equals(secondName)){
+                    salary = (Salary) employee.getHiredateOrSalaryOrJobtitle().get(2);
+                    salary.setvalue(newSalary);
+                    break outerCycle;
+                }
+            }
+        }
+
+        Marshal(organization);
     }
 
-    public void fireEmployee(String firstName, String
-            secondName){
+    public void fireEmployee(String firstName, String secondName){
+        Organization organization = Unmarshal();
 
+        outerCycle: for (Department department : organization.getDepartment() ){
+            for(Employee employee : department.getEmployee()){
+                if(employee.getFirstname().equals(firstName) &&
+                        employee.getSecondname().equals(secondName)){
+                    department.getEmployee().remove(employee);
+                    break outerCycle;
+                }
+            }
+        }
+
+        Marshal(organization);
     }
 }
