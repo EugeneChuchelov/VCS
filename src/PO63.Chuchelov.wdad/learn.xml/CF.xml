@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<organization name="Computer Fixing">
+    <department name="Managing">
+        <employee firstname="Igor" secondname="Teleastrov">
+        <hiredate>24-12-2016</hiredate>
+        <salary>54000</salary>
+        <jobtitle value="head"/>
+        <employee firstname="Vladimir" secondname="Dikobrasov">
+            <hiredate>13-02-2017</hiredate>
+            <salary>31000</salary>
+            <jobtitle value="secretary"/>
+        </employee>
+        <employee firstname="Natalia" secondname="Prigorelova">
+            <hiredate>11-04-2011</hiredate>
+            <salary>36000</salary>
+            <jobtitle value="manager"/>
+        </employee>
+        <employee firstname="Petr" secondname="Stroibatov">
+            <hiredate>30-07-2017</hiredate>
+            <salary>26000</salary>
+            <jobtitle value="manager"/>
+        </employee>
+    </department>
+    <department name="First Engineering">
+        <employee firstname="Alisa" secondname="Karindos">
+            <hiredate>21-08-2012</hiredate>
+            <salary>23000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
+        <employee firstname="Oleg" secondname="Armorov">
+            <hiredate>15-04-2014</hiredate>
+            <salary>20000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
+        <employee firstname="Sirgay" secondname="Prokopenko">
+            <hiredate>19-09-2014</hiredate>
+            <salary>21000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
+    </department>
+    <department name="Second Engineering">
+        <employee firstname="Patrikey" secondname="Evlampov">
+            <hiredate>24-11-2017</hiredate>
+            <salary>24000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
+        <employee firstname="Oleg" secondname="Petrenko">
+            <hiredate>15-05-2009</hiredate>
+            <salary>30000</salary>
+            <jobtitle value="engineer"/>
+        </employee>
+    </department>
+</organization>
