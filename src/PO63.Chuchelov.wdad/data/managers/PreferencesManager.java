@@ -15,9 +15,9 @@ import java.io.*;
 
 public class PreferencesManager {
     private static PreferencesManager instance;
-
+    //todo Appconfig appconfig
     private PreferencesManager(){
-
+        //todo one time unmurshal
     }
 
     public static PreferencesManager getInstance(){
