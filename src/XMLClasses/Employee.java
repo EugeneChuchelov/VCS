@@ -2,6 +2,7 @@
 package XMLClasses;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,12 +31,35 @@ public class Employee {
     @XmlAttribute(name = "secondname", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String secondname;
-    @XmlElements({
-        @XmlElement(name = "hiredate", required = true, type = Hiredate.class),
-        @XmlElement(name = "salary", required = true, type = Salary.class),
-        @XmlElement(name = "jobtitle", required = true, type = Jobtitle.class)
-    })
-    protected List<Object> hiredateOrSalaryOrJobtitle;
+    //todo change to:
+
+    protected java.util.Date hiredate;
+    protected Jobtitle jobtitle;
+    protected int salary;
+
+    public Date getHiredate() {
+        return hiredate;
+    }
+
+    public void setHiredate(Date hiredate) {
+        this.hiredate = hiredate;
+    }
+
+    public Jobtitle getJobtitle() {
+        return jobtitle;
+    }
+
+    public void setJobtitle(Jobtitle jobtitle) {
+        this.jobtitle = jobtitle;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
 
     /**
      * Gets the value of the firstname property.
@@ -85,35 +109,6 @@ public class Employee {
         this.secondname = value;
     }
 
-    /**
-     * Gets the value of the hiredateOrSalaryOrJobtitle property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the hiredateOrSalaryOrJobtitle property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getHiredateOrSalaryOrJobtitle().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Hiredate }
-     * {@link Salary }
-     * {@link Jobtitle }
-     * 
-     * 
-     */
-    public List<Object> getHiredateOrSalaryOrJobtitle() {
-        if (hiredateOrSalaryOrJobtitle == null) {
-            hiredateOrSalaryOrJobtitle = new ArrayList<Object>();
-        }
-        return this.hiredateOrSalaryOrJobtitle;
-    }
+
 
 }

@@ -13,37 +13,14 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * 
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "jobtitle")
-public class Jobtitle {
+//todo enum
 
-    @XmlAttribute(name = "value", required = true)
-    @XmlJavaTypeAdapter(CollapsedStringAdapter.class)
-    protected String value;
+public enum  Jobtitle {
 
-    /**
-     * Gets the value of the value property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
-
-    /**
-     * Sets the value of the value property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+    assistant,
+    secretary,
+    engineer,
+    manager,
+    head;
 
 }

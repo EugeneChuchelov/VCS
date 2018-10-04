@@ -54,6 +54,7 @@ public class XmlTask {
         Salary salary;
 
         for (Department department : organization.getDepartment() ){
+            //TODO IT HAVE TO BE in Department methods - size & salaryTotal
             for(Employee employee : department.getEmployee()){
                 salary = (Salary) employee.getHiredateOrSalaryOrJobtitle().get(1);
                 sum += salary.getvalue();
@@ -73,6 +74,7 @@ public class XmlTask {
 
         for (Department department : organization.getDepartment() ){
             if(department.getName().equals(departmentName)){
+                //TODO IT HAVE TO BE in Department methods - size & salaryTotal
                 for(Employee employee : department.getEmployee()){
                     salary = (Salary) employee.getHiredateOrSalaryOrJobtitle().get(1);
                     sum += salary.getvalue();
@@ -90,6 +92,7 @@ public class XmlTask {
         Jobtitle jobtitle;
 
         outerCycle: for (Department department : organization.getDepartment() ){
+            //TODO IT HAVE TO BE in Department methods - boolean hasEmployee(sname, fname) | findEmployee(sname, fname), setJobtitle()
             for(Employee employee : department.getEmployee()){
                 if(employee.getFirstname().equals(firstName) &&
                         employee.getSecondname().equals(secondName)){
@@ -108,6 +111,7 @@ public class XmlTask {
         Salary salary;
 
         outerCycle: for (Department department : organization.getDepartment() ){
+            //TODO IT HAVE TO BE in Department methods
             for(Employee employee : department.getEmployee()){
                 if(employee.getFirstname().equals(firstName) &&
                         employee.getSecondname().equals(secondName)){
@@ -125,6 +129,7 @@ public class XmlTask {
         Organization organization = Unmarshal();
 
         outerCycle: for (Department department : organization.getDepartment() ){
+            //TODO IT HAVE TO BE in Department methods
             for(Employee employee : department.getEmployee()){
                 if(employee.getFirstname().equals(firstName) &&
                         employee.getSecondname().equals(secondName)){

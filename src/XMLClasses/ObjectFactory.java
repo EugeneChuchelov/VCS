@@ -30,14 +30,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link Jobtitle }
-     * 
-     */
-    public Jobtitle createJobtitle() {
-        return new Jobtitle();
-    }
-
-    /**
      * Create an instance of {@link Organization }
      * 
      */
@@ -61,20 +53,5 @@ public class ObjectFactory {
         return new Employee();
     }
 
-    /**
-     * Create an instance of {@link Hiredate }
-     * 
-     */
-    public Hiredate createHiredate() {
-        return new Hiredate();
-    }
-
-    /**
-     * Create an instance of {@link Salary }
-     * 
-     */
-    public Salary createSalary() {
-        return new Salary();
-    }
 
 }
