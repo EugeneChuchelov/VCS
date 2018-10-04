@@ -15,9 +15,11 @@ import java.io.*;
 
 public class PreferencesManager {
     private static PreferencesManager instance;
-    //todo Appconfig appconfig
+    //todo DONE Appconfig appconfig
+    private Appconfig appconfig;
     private PreferencesManager(){
-        //todo one time unmurshal
+        appconfig = Unmarshal();
+        //todo DONE one time unmurshal
     }
 
     public static PreferencesManager getInstance(){
@@ -27,127 +29,109 @@ public class PreferencesManager {
         return instance;
     }
 
-    public Appconfig getAppconfing(){
-        return Unmarshal();
+    public Appconfig getAppConfig(){
+        return appconfig;
     }
 
-    public void setAppconfig(Appconfig appconfig){
+    public void setAppConfig(Appconfig appconfig){
         Marshal(appconfig);
     }
 
     public Rmi getRmi(){
-        return Unmarshal().getRmi();
+        return appconfig.getRmi();
     }
 
     public void setRmi(Rmi rmi){
-        Appconfig appconfig = Unmarshal();
         appconfig.setRmi(rmi);
         Marshal(appconfig);
     }
 
     public Server getServer(){
-        return Unmarshal().getRmi().getServer();
+        return appconfig.getRmi().getServer();
     }
 
     public void setServer(Server server){
-        Appconfig appconfig = Unmarshal();
         appconfig.getRmi().setServer(server);
         Marshal(appconfig);
     }
 
     public Registry getRegistry(){
-        Appconfig appconfig = Unmarshal();
-        return (Registry)appconfig.getRmi().getServer().getRegistryOrBindedobject().get(0);
+        return appconfig.getRmi().getServer().getRegistry();
     }
 
     public void setRegistry(Registry registry){
-        Appconfig appconfig = Unmarshal();
-        Registry reg = (Registry)appconfig.getRmi().getServer().getRegistryOrBindedobject().get(0);
-        reg = registry;
+        appconfig.getRmi().getServer().setRegistry(registry);
         Marshal(appconfig);
     }
 
     public Client getClient(){
-        return Unmarshal().getRmi().getClient();
+        return appconfig.getRmi().getClient();
     }
 
     public void setClient(Client client){
-        Appconfig appconfig = Unmarshal();
         appconfig.getRmi().setClient(client);
         Marshal(appconfig);
     }
 
-    public String getCreateregistry(){
-        Registry reg = (Registry) Unmarshal().getRmi().getServer().getRegistryOrBindedobject().get(0);
-        return reg.getCreateregistry();
+    public String getCreateRegistry(){
+        return appconfig.getRmi().getServer().getRegistry().getCreateregistry();
     }
 
-    public void setCreateregistry(String createregistry){
-        Appconfig appconfig = Unmarshal();
-        appconfig.getRmi().getServer().getRegistryOrBindedobject().set(0, createregistry);
+    public void setCreateRegistry(String createregistry){
+        appconfig.getRmi().getServer().getRegistry().setCreateregistry(createregistry);
         Marshal(appconfig);
     }
 
-    public String getRegistryaddress(){
-        Registry reg = (Registry) Unmarshal().getRmi().getServer().getRegistryOrBindedobject().get(0);
-        return reg.getRegistryaddress();
+    public String getRegistryAddress(){
+        return appconfig.getRmi().getServer().getRegistry().getRegistryaddress();
     }
 
-    public void setRegistryaddress(String registryaddress){
-        Appconfig appconfig = Unmarshal();
-        Registry reg = (Registry) appconfig.getRmi().getServer().getRegistryOrBindedobject().get(0);
-        reg.setRegistryaddress(registryaddress);
+    public void setRegistryAddress(String registryaddress){
+        appconfig.getRmi().getServer().getRegistry().setRegistryaddress(registryaddress);
         Marshal(appconfig);
     }
 
-    public int getRegistryport(){
-        Registry reg = (Registry) Unmarshal().getRmi().getServer().getRegistryOrBindedobject().get(0);
-        return reg.getRegistryport();
+    public int getRegistryPort(){
+        return appconfig.getRmi().getServer().getRegistry().getRegistryport();
     }
 
-    public void setRegistryport(int registryport){
-        Appconfig appconfig = Unmarshal();
-        Registry reg = (Registry) appconfig.getRmi().getServer().getRegistryOrBindedobject().get(0);
-        reg.setRegistryport(registryport);
+    public void setRegistryPort(int registryport){
+        appconfig.getRmi().getServer().getRegistry().setRegistryport(registryport);
         Marshal(appconfig);
     }
 
-    public Bindedobject getBindedobject(){
-        return (Bindedobject) Unmarshal().getRmi().getServer().getRegistryOrBindedobject().get(1);
+    public Bindedobject getBindedObject(){
+        return appconfig.getRmi().getServer().getBindedobject();
     }
 
-    public void setBindedobject(Bindedobject bindedobject){
-        Appconfig appconfig = Unmarshal();
-        appconfig.getRmi().getServer().getRegistryOrBindedobject().set(1, bindedobject);
+    public void setBindedObject(Bindedobject bindedobject){
+        appconfig.getRmi().getServer().setBindedobject(bindedobject);
         Marshal(appconfig);
     }
 
-    public String getpolicypath(){
-        return Unmarshal().getRmi().getClient().getPolicypath();
+    public String getPolicyPath(){
+        return appconfig.getRmi().getClient().getPolicypath();
     }
 
-    public void setpolicypath(String policypath){
-        Appconfig appconfig = Unmarshal();
+    public void setPolicyPath(String policypath){
         appconfig.getRmi().getClient().setPolicypath(policypath);
         Marshal(appconfig);
     }
 
-    public String getusecodebaseonly(){
-        return Unmarshal().getRmi().getClient().getUsecodebaseonly();
+    public String getUseCodeBaseOnly(){
+        return appconfig.getRmi().getClient().getUsecodebaseonly();
     }
 
-    public void setusecodebaseonly(String usecodebaseonly){
-        Appconfig appconfig = Unmarshal();
+    public void setUseCodeBaseOnly(String usecodebaseonly){
         appconfig.getRmi().getClient().setUsecodebaseonly(usecodebaseonly);
         Marshal(appconfig);
     }
 
-    public String getclassprovider(){
-        return Unmarshal().getRmi().getClassprovider();
+    public String getClassProvider(){
+        return appconfig.getRmi().getClassprovider();
     }
 
-    public void setclassprovider(String classprovider){
-        Appconfig appconfig = Unmarshal();
+    public void setClassProvider(String classprovider){
         appconfig.getRmi().setClassprovider(classprovider);
         Marshal(appconfig);
     }
