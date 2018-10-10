@@ -1,16 +1,10 @@
 
 package XMLClasses;
 
-import java.util.ArrayList;
+import PO63.Chuchelov.wdad.learn.xml.DateAdapter;
+
 import java.util.Date;
-import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -20,7 +14,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "hiredateOrSalaryOrJobtitle"
+        "hiredate",
+        "salary",
+        "jobtitle"
 })
 @XmlRootElement(name = "employee")
 public class Employee {
@@ -33,9 +29,15 @@ public class Employee {
     protected String secondname;
     //todo change to:
 
-    protected java.util.Date hiredate;
-    protected Jobtitle jobtitle;
+    @XmlElement(name = "hiredate", required = true)
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    //@XmlSchemaType(name = "Date")
+
+    protected Date hiredate;
+    @XmlElement(name = "salary", required = true)
     protected int salary;
+    @XmlElement(name = "jobtitle", required = true)
+    protected Jobtitle jobtitle;
 
     public Date getHiredate() {
         return hiredate;
@@ -45,20 +47,20 @@ public class Employee {
         this.hiredate = hiredate;
     }
 
-    public Jobtitle getJobtitle() {
-        return jobtitle;
-    }
-
-    public void setJobtitle(Jobtitle jobtitle) {
-        this.jobtitle = jobtitle;
-    }
-
     public int getSalary() {
         return salary;
     }
 
     public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public JobtitleEnum getJobtitle() {
+        return jobtitle.getValue();
+    }
+
+    public void setJobtitle(JobtitleEnum jobtitle) {
+        this.jobtitle.setValue(jobtitle);
     }
 
     /**
@@ -108,7 +110,4 @@ public class Employee {
     public void setSecondname(String value) {
         this.secondname = value;
     }
-
-
-
 }

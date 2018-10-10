@@ -2,9 +2,9 @@
 <organization name="Computer Fixing">
     <department name="Managing">
         <employee firstname="Igor" secondname="Teleastrov">
-        <hiredate>24-12-2016</hiredate>
-        <salary>54000</salary>
-        <jobtitle value="head"/>
+            <hiredate>24-12-2016</hiredate>
+            <salary>11000</salary>
+            <jobtitle value="assistant"/>
         </employee>
         <employee firstname="Vladimir" secondname="Dikobrasov">
             <hiredate>13-02-2017</hiredate>
