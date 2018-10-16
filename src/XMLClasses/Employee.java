@@ -1,15 +1,10 @@
 
 package XMLClasses;
 
-import java.util.ArrayList;
-import java.util.List;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElements;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import PO63.Chuchelov.wdad.learn.xml.DateAdapter;
+
+import java.util.Date;
+import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -19,7 +14,9 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "hiredateOrSalaryOrJobtitle"
+        "hiredate",
+        "salary",
+        "jobtitle"
 })
 @XmlRootElement(name = "employee")
 public class Employee {
@@ -30,12 +27,41 @@ public class Employee {
     @XmlAttribute(name = "secondname", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String secondname;
-    @XmlElements({
-        @XmlElement(name = "hiredate", required = true, type = Hiredate.class),
-        @XmlElement(name = "salary", required = true, type = Salary.class),
-        @XmlElement(name = "jobtitle", required = true, type = Jobtitle.class)
-    })
-    protected List<Object> hiredateOrSalaryOrJobtitle;
+    //todo change to:
+
+    @XmlElement(name = "hiredate", required = true)
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    //@XmlSchemaType(name = "Date")
+
+    protected Date hiredate;
+    @XmlElement(name = "salary", required = true)
+    protected int salary;
+    @XmlElement(name = "jobtitle", required = true)
+    protected Jobtitle jobtitle;
+
+    public Date getHiredate() {
+        return hiredate;
+    }
+
+    public void setHiredate(Date hiredate) {
+        this.hiredate = hiredate;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
+    public void setSalary(int salary) {
+        this.salary = salary;
+    }
+
+    public JobtitleEnum getJobtitle() {
+        return jobtitle.getValue();
+    }
+
+    public void setJobtitle(JobtitleEnum jobtitle) {
+        this.jobtitle.setValue(jobtitle);
+    }
 
     /**
      * Gets the value of the firstname property.
@@ -84,36 +110,4 @@ public class Employee {
     public void setSecondname(String value) {
         this.secondname = value;
     }
-
-    /**
-     * Gets the value of the hiredateOrSalaryOrJobtitle property.
-     * 
-     * <p>
-     * This accessor method returns a reference to the live list,
-     * not a snapshot. Therefore any modification you make to the
-     * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the hiredateOrSalaryOrJobtitle property.
-     * 
-     * <p>
-     * For example, to add a new item, do as follows:
-     * <pre>
-     *    getHiredateOrSalaryOrJobtitle().add(newItem);
-     * </pre>
-     * 
-     * 
-     * <p>
-     * Objects of the following type(s) are allowed in the list
-     * {@link Hiredate }
-     * {@link Salary }
-     * {@link Jobtitle }
-     * 
-     * 
-     */
-    public List<Object> getHiredateOrSalaryOrJobtitle() {
-        if (hiredateOrSalaryOrJobtitle == null) {
-            hiredateOrSalaryOrJobtitle = new ArrayList<Object>();
-        }
-        return this.hiredateOrSalaryOrJobtitle;
-    }
-
 }

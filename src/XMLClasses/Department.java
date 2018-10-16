@@ -82,4 +82,31 @@ public class Department {
         return this.employee;
     }
 
+    public int getSize(){
+        return getEmployee().size();
+    }
+
+    public int getSalaryTotal(){
+        int salary = 0;
+        for(Employee employee : getEmployee()){
+            salary += employee.getSalary();
+        }
+        return salary;
+    }
+
+    public int findEmployee(String firstName, String secondName) {
+        int index = 0;
+
+        for(Employee employee : getEmployee()){
+            if(employee.getFirstname().equals(firstName) &&
+                    employee.getSecondname().equals(secondName)){
+                return index;
+            }
+            else {
+                index++;
+            }
+        }
+        return -1;
+    }
+
 }
