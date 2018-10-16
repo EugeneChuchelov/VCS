@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "server")
 public class Server {
     protected Registry registry;
-    protected Bindedobject bindedobject;
+    protected List<Bindedobject> bindedobject;
 
     public Registry getRegistry() {
         return registry;
@@ -31,11 +31,36 @@ public class Server {
         this.registry = registry;
     }
 
-    public Bindedobject getBindedobject() {
-        return bindedobject;
+    public List<Bindedobject> getBindedobject() {
+        if(bindedobject == null){
+            bindedobject = new ArrayList<>();
+        }
+        return this.bindedobject;
     }
 
-    public void setBindedobject(Bindedobject bindedobject) {
+    public void setBindedobject(List<Bindedobject> bindedobject) {
         this.bindedobject = bindedobject;
+    }
+
+    public void addBindedObject(String name, String className){
+        if(bindedobject == null){
+            bindedobject = new ArrayList<>();
+        }
+        Bindedobject bindedobject = new Bindedobject();
+        bindedobject.name = name;
+        bindedobject.clazz = className;
+        this.bindedobject.add(bindedobject);
+    }
+
+    public void removeBindedObject(String name){
+        if(bindedobject == null){
+            bindedobject = new ArrayList<>();
+        }
+        for(Bindedobject bindedobject : this.bindedobject){
+            if(bindedobject.getName().equals(name)){
+                this.bindedobject.remove(bindedobject);
+                return;
+            }
+        }
     }
 }
