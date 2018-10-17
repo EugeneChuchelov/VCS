@@ -1,5 +1,5 @@
 
-package XMLClasses;
+package PO63.Chuchelov.wdad.learn.xml.XMLClasses;
 
 import PO63.Chuchelov.wdad.learn.xml.DateAdapter;
 
@@ -27,11 +27,9 @@ public class Employee {
     @XmlAttribute(name = "secondname", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
     protected String secondname;
-    //todo change to:
 
     @XmlElement(name = "hiredate", required = true)
     @XmlJavaTypeAdapter(DateAdapter.class)
-    //@XmlSchemaType(name = "Date")
 
     protected Date hiredate;
     @XmlElement(name = "salary", required = true)

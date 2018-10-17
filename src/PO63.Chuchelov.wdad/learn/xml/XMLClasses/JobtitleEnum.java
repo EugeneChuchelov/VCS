@@ -1,5 +1,5 @@
 
-package XMLClasses;
+package PO63.Chuchelov.wdad.learn.xml.XMLClasses;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -13,7 +13,6 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 /**
  * 
  */
-//todo enum
 
 public enum JobtitleEnum {
 
