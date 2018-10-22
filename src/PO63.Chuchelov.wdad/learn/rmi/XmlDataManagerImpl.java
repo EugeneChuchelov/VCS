@@ -56,7 +56,7 @@ public class XmlDataManagerImpl implements XmlDataManager {
     }
 
     @Override
-    public void setJobTitile(Employee employee, JobtitleEnum newJobTitle) {
+    public void setJobTitle(Employee employee, JobtitleEnum newJobTitle) {
         int index;
 
         for (Department department : organization.getDepartment() ){
@@ -72,11 +72,11 @@ public class XmlDataManagerImpl implements XmlDataManager {
     @Override
     public void setSalary(Employee employee, int newSalary) {
         int index;
-
         for (Department department : organization.getDepartment() ){
             index = department.findEmployee(employee);
             if(index != -1){
                 department.getEmployee().get(index).setSalary(newSalary);
+                break;
             }
         }
 
@@ -91,6 +91,7 @@ public class XmlDataManagerImpl implements XmlDataManager {
             index = department.findEmployee(employee);
             if(index != -1){
                 department.getEmployee().remove(index);
+                break;
             }
         }
 
@@ -102,6 +103,18 @@ public class XmlDataManagerImpl implements XmlDataManager {
         organization.getDepartment().add(department);
 
         Marshal(organization);
+    }
+
+    @Override
+    public Employee getEmployee(String firstName, String secondName) {
+        int index = 0;
+        for(Department dp : organization.getDepartment()){
+            index = dp.findEmployee(firstName, secondName);
+            if(index != -1){
+                return dp.getEmployee().get(index);
+            }
+        }
+        return null;
     }
 
     private void Marshal(Organization organization){

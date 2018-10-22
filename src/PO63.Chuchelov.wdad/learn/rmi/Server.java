@@ -19,8 +19,9 @@ public class Server {
 
 
         PreferencesManager pm = PreferencesManager.getInstance();
+        System.setSecurityManager(new SecurityManager());
         try {
-            XmlDataManagerImpl obj = new XmlDataManagerImpl("src/PO63.Chuchelov.wdad/learn/xml/CF.xml");
+            XmlDataManagerImpl obj = new XmlDataManagerImpl("F:\\Documents\\GitHub\\starting-monkey-to-human-path\\src\\PO63.Chuchelov.wdad\\learn\\xml\\CF.xml");
             XmlDataManager stub = (XmlDataManager) UnicastRemoteObject.exportObject(obj, 0);
             Registry registry;
 
@@ -30,10 +31,10 @@ public class Server {
                 registry = LocateRegistry.getRegistry(Integer.parseInt(pm.getProperty(REGISTRYPORT)));
             }
             registry.rebind("XmlDataManager", stub);
-            pm.addBindedObject("XmlDataManager", "PO63.Chuchelov.wdad.learn.rmi.XmlDataManager");
+            /*pm.addBindedObject("XmlDataManager", "PO63.Chuchelov.wdad.learn.rmi.XmlDataManager");
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());
-            }
+            }*/
             System.out.println("Server is online (probably)");
         } catch (Exception e) {
             e.printStackTrace();

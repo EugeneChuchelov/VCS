@@ -1,6 +1,7 @@
 
 package PO63.Chuchelov.wdad.learn.xml.XMLClasses;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
     "employee"
 })
 @XmlRootElement(name = "department")
-public class Department {
+public class Department implements Serializable {
 
     @XmlAttribute(name = "name", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)

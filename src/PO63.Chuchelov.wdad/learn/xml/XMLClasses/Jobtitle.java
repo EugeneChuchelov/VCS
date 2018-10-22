@@ -4,6 +4,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import java.io.Serializable;
 
 /**
  *
@@ -11,7 +12,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "jobtitle")
-public class Jobtitle {
+public class Jobtitle implements Serializable {
     @XmlAttribute(name = "value", required = true)
     //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected JobtitleEnum value;
@@ -36,5 +37,16 @@ public class Jobtitle {
      */
     public void setValue(JobtitleEnum value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this){
+            return true;
+        }
+        if(obj instanceof Jobtitle){
+            return ((Jobtitle) obj).value.equals(value);
+        }
+        return false;
     }
 }

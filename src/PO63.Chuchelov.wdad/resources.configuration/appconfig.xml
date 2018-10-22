@@ -20,6 +20,9 @@
             <bindedobject name="XmlDataManager" class="PO63.Chuchelov.wdad.learn.rmi.XmlDataManager"/>
             <bindedobject name="XmlDataManager" class="PO63.Chuchelov.wdad.learn.rmi.XmlDataManager"/>
             <bindedobject name="XmlDataManager" class="PO63.Chuchelov.wdad.learn.rmi.XmlDataManager"/>
+            <bindedobject name="XmlDataManager" class="PO63.Chuchelov.wdad.learn.rmi.XmlDataManager"/>
+            <bindedobject name="XmlDataManager" class="PO63.Chuchelov.wdad.learn.rmi.XmlDataManager"/>
+            <bindedobject name="XmlDataManager" class="PO63.Chuchelov.wdad.learn.rmi.XmlDataManager"/>
         </server>
         <client>
             <policypath>client.policy</policypath>

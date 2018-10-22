@@ -3,6 +3,7 @@ package PO63.Chuchelov.wdad.learn.xml.XMLClasses;
 
 import PO63.Chuchelov.wdad.learn.xml.DateAdapter;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
@@ -19,7 +20,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
         "jobtitle"
 })
 @XmlRootElement(name = "employee")
-public class Employee {
+public class Employee implements Serializable {
 
     @XmlAttribute(name = "firstname", required = true)
     @XmlJavaTypeAdapter(NormalizedStringAdapter.class)
@@ -107,5 +108,21 @@ public class Employee {
      */
     public void setSecondname(String value) {
         this.secondname = value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if(obj == this){
+            return true;
+        }
+        if(obj instanceof Employee){
+            return ((Employee) obj).firstname.equals(firstname) &&
+                    ((Employee) obj).secondname.equals(secondname) &&
+                     ((Employee) obj).hiredate.equals(hiredate) &&
+                      ((Employee) obj).salary == salary &&
+                       ((Employee) obj).jobtitle.equals(jobtitle);
+        }
+        return false;
     }
 }

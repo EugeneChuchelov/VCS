@@ -8,10 +8,11 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public interface XmlDataManager extends Remote {
-    public int salaryAverage() throws RemoteException;
-    public int salaryAverage(String departmentName) throws RemoteException;
-    public void setJobTitile(Employee employee, JobtitleEnum newJobTitle) throws RemoteException;
-    public void setSalary(Employee employee, int newSalary) throws RemoteException;
-    public void fireEmployee(Employee employee) throws RemoteException;
-    public void add(Department department) throws RemoteException;
+    int salaryAverage() throws RemoteException;
+    int salaryAverage(String departmentName) throws RemoteException;
+    void setJobTitle(Employee employee, JobtitleEnum newJobTitle) throws RemoteException;
+    void setSalary(Employee employee, int newSalary) throws RemoteException;
+    void fireEmployee(Employee employee) throws RemoteException;
+    void add(Department department) throws RemoteException;
+    Employee getEmployee(String firstName, String secondName) throws RemoteException;
 }
