@@ -193,24 +193,38 @@ public class PreferencesManager {
         properties.replace(key, value);
         MarshalProperties();
     }
+
     public String getProperty(String key){
         return properties.getProperty(key);
     }
+
     public void setProperties(Properties prop){
         for(Object key : prop.keySet()){
             properties.replace((String)key, (String)prop.get(key));
         }
     }
+
     public Properties getProperties(){
         return properties;
     }
+
     public void addBindedObject(String name, String className){
         appconfig.getRmi().getServer().addBindedObject(name, className);
         Marshal();
     }
+
     public void removeBindedObject(String name){
         appconfig.getRmi().getServer().removeBindedObject(name);
         Marshal();
+    }
+
+    public String getBindedObjectName(String className){
+        for(Bindedobject obj : appconfig.getRmi().getServer().getBindedobject()){
+            if(obj.getClazz().equals(className)){
+                return obj.getName();
+            }
+        }
+        return "";
     }
 
     private void Marshal(){
@@ -220,7 +234,8 @@ public class PreferencesManager {
             marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
             marshaller.setProperty(Marshaller.JAXB_FRAGMENT, Boolean.TRUE);
             
-            OutputStream os = new FileOutputStream("src/PO63.Chuchelov.wdad/resources.configuration/appconfig.xml");
+            OutputStream os = new FileOutputStream(
+                    "F:\\Documents\\GitHub\\starting-monkey-to-human-path\\src\\PO63.Chuchelov.wdad\\resources.configuration\\appconfig.xml");
             marshaller.marshal(appconfig, os);
             os.close();
         }
@@ -233,7 +248,7 @@ public class PreferencesManager {
         Appconfig appconfig = null;
         try {
             JAXBContext context = JAXBContext.newInstance(Appconfig.class);
-            InputStream is = new FileInputStream("src/PO63.Chuchelov.wdad/resources.configuration/appconfig.xml");
+            InputStream is = new FileInputStream("F:\\Documents\\GitHub\\starting-monkey-to-human-path\\src\\PO63.Chuchelov.wdad\\resources.configuration\\appconfig.xml");
             Unmarshaller unmarshaller = context.createUnmarshaller();
             appconfig = (Appconfig) unmarshaller.unmarshal(is);
             is.close();
