@@ -30,7 +30,7 @@ public class Server {
             } else {
                 registry = LocateRegistry.getRegistry(Integer.parseInt(pm.getProperty(REGISTRYPORT)));
             }
-            registry.rebind("XmlDataManager", stub);
+            registry.rebind("XmlDataManager", obj);
             /*pm.addBindedObject("XmlDataManager", "PO63.Chuchelov.wdad.learn.rmi.XmlDataManager");
             if (System.getSecurityManager() == null) {
                 System.setSecurityManager(new SecurityManager());

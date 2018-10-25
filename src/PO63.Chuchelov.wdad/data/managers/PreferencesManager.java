@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class PreferencesManager {
+    //todo вместо JAXB здесь уже лечше использовать DOM и с помощью XPath получать доступ к ноду этого DOM-а
     private static PreferencesManager instance;
     private Appconfig appconfig;
     private Properties properties = new Properties();
@@ -32,7 +33,6 @@ public class PreferencesManager {
         properties.put("appconfig.rmi.client.policypath", appconfig.getRmi().getClient().getPolicypath());
         properties.put("appconfig.rmi.client.usecodebaseonly", appconfig.getRmi().getClient().getUsecodebaseonly());
         properties.put("appconfig.rmi.classprovider", appconfig.getRmi().getClassprovider());
-
     }
 
     public static PreferencesManager getInstance(){
