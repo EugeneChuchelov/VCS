@@ -21,7 +21,7 @@ public class Server {
         PreferencesManager pm = PreferencesManager.getInstance();
         System.setSecurityManager(new SecurityManager());
         try {
-            XmlDataManagerImpl obj = new XmlDataManagerImpl("F:\\Documents\\GitHub\\starting-monkey-to-human-path\\src\\PO63.Chuchelov.wdad\\learn\\xml\\CF.xml");
+            XmlDataManagerImpl obj = new XmlDataManagerImpl("F:\\Documents\\GitHub\\starting-monkey-to-human-path\\src\\PO63.Chuchelov.wdad\\learn\\xml\\CF.xml"); //todo fix ALL pathes
             XmlDataManager stub = (XmlDataManager) UnicastRemoteObject.exportObject(obj, 0);
             Registry registry;
 
