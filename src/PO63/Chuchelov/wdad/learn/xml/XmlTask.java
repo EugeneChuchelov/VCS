@@ -2,7 +2,9 @@ package PO63.Chuchelov.wdad.learn.xml;
 
 import java.io.*;
 
-import XMLClasses.*;
+import PO63.Chuchelov.wdad.learn.xml.XMLClasses.Department;
+import PO63.Chuchelov.wdad.learn.xml.XMLClasses.JobtitleEnum;
+import PO63.Chuchelov.wdad.learn.xml.XMLClasses.Organization;
 
 import javax.xml.bind.*;
 
@@ -51,7 +53,6 @@ public class XmlTask {
         for (Department department : organization.getDepartment() ){
             sum += department.getSalaryTotal();
             count += department.getSize();
-            //TODO + IT HAVE TO BE in Department methods - size & salaryTotal
         }
 
         return sum/count;
@@ -65,7 +66,6 @@ public class XmlTask {
             if(department.getName().equals(departmentName)){
                 sum += department.getSalaryTotal();
                 count += department.getSize();
-                //TODO + IT HAVE TO BE in Department methods - size & salaryTotal
             }
         }
 
@@ -80,7 +80,6 @@ public class XmlTask {
             if(index != -1){
                 department.getEmployee().get(index).setJobtitle(newJobTitle);
             }
-            //TODO + IT HAVE TO BE in Department methods - boolean hasEmployee(sname, fname) | findEmployee(sname, fname), setJobtitle()
         }
 
         Marshal(organization);
@@ -94,7 +93,6 @@ public class XmlTask {
             if(index != -1){
                 department.getEmployee().get(index).setSalary(newSalary);
             }
-            //TODO + IT HAVE TO BE in Department methods - boolean hasEmployee(sname, fname) | findEmployee(sname, fname), setJobtitle()
         }
 
         Marshal(organization);
@@ -108,7 +106,6 @@ public class XmlTask {
             if(index != -1){
                 department.getEmployee().remove(index);
             }
-            //TODO + IT HAVE TO BE in Department methods - boolean hasEmployee(sname, fname) | findEmployee(sname, fname), setJobtitle()
         }
 
         Marshal(organization);

@@ -1,5 +1,5 @@
 
-package XMLClasses;
+package PO63.Chuchelov.wdad.learn.xml.XMLClasses;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -8,14 +8,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
 
 
 /**
  * 
  */
-//todo enum
 
-public enum JobtitleEnum {
+public enum JobtitleEnum implements Serializable {
 
     assistant,
     secretary,
