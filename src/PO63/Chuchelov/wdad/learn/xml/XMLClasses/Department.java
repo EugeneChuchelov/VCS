@@ -30,6 +30,14 @@ public class Department implements Serializable {
     @XmlElement(required = true)
     protected List<Employee> employee;
 
+    public Department() {
+    }
+
+    public Department(String name, List<Employee> employee) {
+        this.name = name;
+        this.employee = employee;
+    }
+
     /**
      * Gets the value of the name property.
      * 

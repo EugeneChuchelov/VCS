@@ -3,6 +3,7 @@ package PO63.Chuchelov.wdad.data.managers;
 import PO63.Chuchelov.wdad.data.storage.DataSourceFactory;
 import PO63.Chuchelov.wdad.learn.xml.XMLClasses.Department;
 import PO63.Chuchelov.wdad.learn.xml.XMLClasses.Employee;
+import PO63.Chuchelov.wdad.learn.xml.XMLClasses.Jobtitle;
 import PO63.Chuchelov.wdad.learn.xml.XMLClasses.JobtitleEnum;
 import PO63.Chuchelov.wdad.utils.PreferencesManagerConstants;
 
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JDBCDataManager implements DataManager {
     DataSource dataSource;
@@ -27,14 +30,25 @@ public class JDBCDataManager implements DataManager {
 
     @Override
     public int salaryAverage() throws RemoteException {
-        Statement stmt;
-        ResultSet rs;
         String query = "SELECT AVG(salary) FROM employees";
-        try {
-            Connection conn = dataSource.getConnection(user, pass);
-            stmt = conn.createStatement();
+        return getSalary(query);
+    }
+
+    @Override
+    public int salaryAverage(String departmentName) throws RemoteException {
+        String query = "SELECT AVG(salary) FROM `employees` " +
+                "INNER JOIN departments ON employees.departments_id = departments.id " +
+                "WHERE departments.name = \"" + departmentName +"\"";
+        return getSalary(query);
+    }
+
+    private int getSalary(String query){
+        ResultSet rs;
+        try (Connection conn = dataSource.getConnection(user, pass);
+             Statement stmt = conn.createStatement()){
             rs = stmt.executeQuery(query);
-            return Integer.parseInt(rs.getString(0));
+            rs.next();
+            return (int) Double.parseDouble(rs.getString("AVG(salary)"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -42,32 +56,105 @@ public class JDBCDataManager implements DataManager {
     }
 
     @Override
-    public int salaryAverage(String departmentName) throws RemoteException {
-        return 0;
-    }
-
-    @Override
     public void setJobTitle(Employee employee, JobtitleEnum newJobTitle) throws RemoteException {
-
+        String query = "UPDATE employees SET jobtitles_id = (SELECT id FROM jobtitles " +
+                                                            "WHERE name = \""+newJobTitle.toString()+"\") " +
+                "WHERE employees.first_name = \""+employee.getFirstname()+"\" " +
+                "AND employees.second_name = \""+employee.getSecondname()+"\"";
+        update(query);
     }
 
     @Override
     public void setSalary(Employee employee, int newSalary) throws RemoteException {
-
+        String query = "UPDATE employees SET salary = " + newSalary +
+                "WHERE employees.first_name = \"" + employee.getFirstname()+"\" " +
+                "AND employees.second_name = \""+employee.getSecondname()+"\"";
+        update(query);
     }
 
     @Override
     public void fireEmployee(Employee employee) throws RemoteException {
-
+        String query = "DELETE FROM employees " +
+                "WHERE employees.first_name = \"" + employee.getFirstname()+"\" " +
+                "AND employees.second_name = \""+employee.getSecondname()+"\"";
+        update(query);
     }
 
     @Override
     public void add(Department department) throws RemoteException {
+        String query = "INSERT INTO `departments` (`id`, `name`) " +
+                "VALUES (NULL, '"+department.getName()+"')";
+        update(query);
+        for(Employee employee : department.getEmployee()){
+            add(employee, department.getName());
+        }
+    }
 
+    private void add(Employee employee, String dep){
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd");
+        StringBuilder sb = new StringBuilder("INSERT INTO `employees` (`id`, `first_name`, `second_name`, `hire_date`, `salary`, `jobtitles_id`, `departments_id`) VALUES ");
+        sb.append('(').append("NULL").append(",");
+        sb.append('\'').append(employee.getFirstname()).append("\',");
+        sb.append('\'').append(employee.getSecondname()).append("\',");
+        sb.append('\'').append(ft.format(employee.getHiredate())).append("\',");
+        sb.append('\'').append(employee.getSalary()).append("\',");
+        sb.append('\'').append(getId(employee.getJobtitle())).append("\',");
+        sb.append('\'').append(getId(dep)).append("\')");
+
+        update(sb.toString());
+    }
+
+    private int getId(JobtitleEnum jobtitle){
+        String query = "SELECT id FROM jobtitles\n" +
+                "WHERE name = \""+jobtitle.toString()+"\"";
+        return getInt(query);
+    }
+
+    private int getId(String name){
+        String query = "SELECT id FROM departments\n" +
+                "WHERE name = \""+name+"\"";
+        return getInt(query);
+    }
+
+    private int getInt(String query) {
+        try (Connection conn = dataSource.getConnection(user, pass);
+             Statement stmt = conn.createStatement()){
+            ResultSet rs;
+            rs = stmt.executeQuery(query);
+            rs.next();
+            return rs.getInt(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private void update(String query){
+        try (Connection conn = dataSource.getConnection(user, pass);
+             Statement stmt = conn.createStatement()){
+             stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public Employee getEmployee(String firstName, String secondName) throws RemoteException {
+        String query = "SELECT hire_date, salary, jobtitles.name " +
+                "FROM employees INNER JOIN jobtitles ON employees.jobtitles_id = jobtitles.id " +
+                "WHERE first_name = \"" + firstName + "\" AND second_name = \"" + secondName + "\"";
+        ResultSet rs;
+        try (Connection conn = dataSource.getConnection(user, pass);
+             Statement stmt = conn.createStatement()){
+            rs = stmt.executeQuery(query);
+            rs.next();
+            Date hireDate = rs.getDate("hire_date");
+            int salary = (int) Double.parseDouble(rs.getString("salary"));
+            JobtitleEnum jobtitle = JobtitleEnum.valueOf(rs.getString("name"));
+            return new Employee(firstName, secondName, hireDate, salary, jobtitle);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

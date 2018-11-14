@@ -16,6 +16,14 @@ public class Jobtitle implements Serializable {
     @XmlAttribute(name = "value", required = true)
     //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected JobtitleEnum value;
+
+    public Jobtitle() {
+    }
+
+    public Jobtitle(JobtitleEnum value) {
+        this.value = value;
+    }
+
     /**
      * Gets the value of the value property.
      *

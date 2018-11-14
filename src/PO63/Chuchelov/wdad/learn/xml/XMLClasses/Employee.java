@@ -38,6 +38,17 @@ public class Employee implements Serializable {
     @XmlElement(name = "jobtitle", required = true)
     protected Jobtitle jobtitle;
 
+    public Employee() {
+    }
+
+    public Employee(String firstname, String secondname, Date hiredate, int salary, JobtitleEnum jobtitle) {
+        this.firstname = firstname;
+        this.secondname = secondname;
+        this.hiredate = hiredate;
+        this.salary = salary;
+        this.jobtitle = new Jobtitle(jobtitle);
+    }
+
     public Date getHiredate() {
         return hiredate;
     }
