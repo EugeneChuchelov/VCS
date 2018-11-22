@@ -9,23 +9,16 @@ import PO63.Chuchelov.wdad.utils.PreferencesManagerConstants;
 
 import javax.sql.DataSource;
 import java.rmi.RemoteException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class JDBCDataManager implements DataManager {
-    DataSource dataSource;
-    String user;
-    String pass;
+    private DataSource dataSource;
 
     public JDBCDataManager() {
         dataSource = DataSourceFactory.createDataSource();
         PreferencesManager pm = PreferencesManager.getInstance();
-        user = pm.getProperty(PreferencesManagerConstants.USER);
-        pass = pm.getProperty(PreferencesManagerConstants.PASS);
     }
 
     @Override
@@ -38,13 +31,17 @@ public class JDBCDataManager implements DataManager {
     public int salaryAverage(String departmentName) throws RemoteException {
         String query = "SELECT AVG(salary) FROM `employees` " +
                 "INNER JOIN departments ON employees.departments_id = departments.id " +
-                "WHERE departments.name = \"" + departmentName +"\"";
+                "WHERE departments.name = ?";
+        //todo the same as:
+        PreparedStatement statement = dataSource.getConnection().prepareStatement(query);
+        statement.setString(1, departmentName);
+
         return getSalary(query);
     }
 
     private int getSalary(String query){
         ResultSet rs;
-        try (Connection conn = dataSource.getConnection(user, pass);
+        try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()){
             rs = stmt.executeQuery(query);
             rs.next();
@@ -58,9 +55,10 @@ public class JDBCDataManager implements DataManager {
     @Override
     public void setJobTitle(Employee employee, JobtitleEnum newJobTitle) throws RemoteException {
         String query = "UPDATE employees SET jobtitles_id = (SELECT id FROM jobtitles " +
-                                                            "WHERE name = \""+newJobTitle.toString()+"\") " +
+                                                            "WHERE name = \""+newJobTitle.name()+"\") " +
                 "WHERE employees.first_name = \""+employee.getFirstname()+"\" " +
                 "AND employees.second_name = \""+employee.getSecondname()+"\"";
+        //todo Join-ишь employees и jobtitles по jobtitles_id и просто в Where еще условие WHERE jobtitles.name = ?
         update(query);
     }
 
@@ -117,7 +115,7 @@ public class JDBCDataManager implements DataManager {
     }
 
     private int getInt(String query) {
-        try (Connection conn = dataSource.getConnection(user, pass);
+        try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()){
             ResultSet rs;
             rs = stmt.executeQuery(query);
@@ -130,7 +128,7 @@ public class JDBCDataManager implements DataManager {
     }
 
     private void update(String query){
-        try (Connection conn = dataSource.getConnection(user, pass);
+        try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()){
              stmt.executeUpdate(query);
         } catch (SQLException e) {
@@ -141,10 +139,10 @@ public class JDBCDataManager implements DataManager {
     @Override
     public Employee getEmployee(String firstName, String secondName) throws RemoteException {
         String query = "SELECT hire_date, salary, jobtitles.name " +
-                "FROM employees INNER JOIN jobtitles ON employees.jobtitles_id = jobtitles.id " +
+                "FROM employees OUTER JOIN jobtitles ON employees.jobtitles_id = jobtitles.id " +
                 "WHERE first_name = \"" + firstName + "\" AND second_name = \"" + secondName + "\"";
         ResultSet rs;
-        try (Connection conn = dataSource.getConnection(user, pass);
+        try (Connection conn = dataSource.getConnection();
              Statement stmt = conn.createStatement()){
             rs = stmt.executeQuery(query);
             rs.next();
