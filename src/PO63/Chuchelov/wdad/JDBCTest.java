@@ -18,9 +18,11 @@ public class JDBCTest {
         DataManager dm = new JDBCDataManager();
         //System.out.println(dm.salaryAverage());
         //System.out.println(dm.salaryAverage("First Engineering"));
-        //Employee f = dm.getEmployee("Igor", "Teleastrov");
-        //dm.setJobTitle(f, JobtitleEnum.engineer);
+        Employee f = dm.getEmployee("Igor", "Teleastrov");
+        dm.setJobTitle(f, JobtitleEnum.head);
         //dm.fireEmployee(f);
+
+        /*
         SimpleDateFormat ft = new SimpleDateFormat("dd-MM-yyyy");
         Date f = ft.parse("11-05-1211");
         Date s = ft.parse("29-04-1015");
@@ -32,5 +34,6 @@ public class JDBCTest {
         fds.add(second);
         Department dep = new Department("Defencing", fds);
         dm.add(dep);
+        */
     }
 }

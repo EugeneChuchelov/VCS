@@ -18,7 +18,7 @@ public class Server {
         System.setProperty("java.security.policy", pm.getProperty(POLICYPATH));
         System.setSecurityManager(new SecurityManager());
         try {
-            XmlDataManagerImpl obj = new XmlDataManagerImpl(FILEPATH); //todo fix ALL pathos
+            XmlDataManagerImpl obj = new XmlDataManagerImpl(FILEPATH);
             DataManager stub = (DataManager) UnicastRemoteObject.exportObject(obj, 0);
             Registry registry;
 

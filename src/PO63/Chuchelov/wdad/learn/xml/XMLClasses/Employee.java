@@ -31,12 +31,15 @@ public class Employee implements Serializable {
 
     @XmlElement(name = "hiredate", required = true)
     @XmlJavaTypeAdapter(DateAdapter.class)
-
     protected Date hiredate;
+    @XmlElement(name = "birthdate", required = true)
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    protected Date birthdate;
     @XmlElement(name = "salary", required = true)
     protected int salary;
     @XmlElement(name = "jobtitle", required = true)
     protected Jobtitle jobtitle;
+
 
     public Employee() {
     }
@@ -55,6 +58,14 @@ public class Employee implements Serializable {
 
     public void setHiredate(Date hiredate) {
         this.hiredate = hiredate;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     public int getSalary() {
