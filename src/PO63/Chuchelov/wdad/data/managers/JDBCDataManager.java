@@ -37,7 +37,6 @@ public class JDBCDataManager implements DataManager {
         String query = "SELECT AVG(salary) FROM `employees` " +
                 "INNER JOIN departments ON employees.departments_id = departments.id " +
                 "WHERE departments.name = ?";
-        //todo the same as:
         try {
             PreparedStatement statement = dataSource.getConnection().prepareStatement(query);
             statement.setString(1, departmentName);
@@ -64,7 +63,6 @@ public class JDBCDataManager implements DataManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //todo Join-ишь employees и jobtitles по jobtitles_id и просто в Where еще условие WHERE jobtitles.name = ?
     }
 
     @Override
