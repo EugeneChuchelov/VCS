@@ -1,15 +1,15 @@
 package PO63.Chuchelov.wdad.learn.xml;
 
-import XMLClasses.JobtitleEnum;
+import PO63.Chuchelov.wdad.learn.xml.XMLClasses.JobtitleEnum;
 
 public class TestXmlTask {
     public static void main(String[] args){
-        XmlTask xml = new XmlTask("src/PO63.Chuchelov.wdad/learn.xml/CF.xml");
+        /*XmlTask xml = new XmlTask("src/PO63.Chuchelov.wdad/learn/xml/CF.xml");
         System.out.println("Av. salary: " + xml.salaryAverage());
         System.out.println("Av. salary in First Engineering dep.: " + xml.salaryAverage("First Engineering"));
 
         xml.setJobTitile("Igor", "Teleastrov", JobtitleEnum.assistant);
         xml.setSalary("Igor", "Teleastrov", 11000);
-        //xml.fireEmployee("Igor", "Teleastrov");
+        //xml.fireEmployee("Igor", "Teleastrov");*/
     }
 }

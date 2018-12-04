@@ -3,7 +3,7 @@
     <department name="Managing">
         <employee firstname="Igor" secondname="Teleastrov">
             <hiredate>24-12-2016</hiredate>
-            <salary>11000</salary>
+            <salary>4000</salary>
             <jobtitle value="assistant"/>
         </employee>
         <employee firstname="Vladimir" secondname="Dikobrasov">

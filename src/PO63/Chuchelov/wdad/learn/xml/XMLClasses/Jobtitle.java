@@ -1,22 +1,29 @@
-package XMLClasses;
+package PO63.Chuchelov.wdad.learn.xml.XMLClasses;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
-import javax.xml.bind.annotation.adapters.NormalizedStringAdapter;
-import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.io.Serializable;
+
 /**
  *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
 @XmlRootElement(name = "jobtitle")
-public class Jobtitle {
+public class Jobtitle implements Serializable {
     @XmlAttribute(name = "value", required = true)
     //@XmlJavaTypeAdapter(CollapsedStringAdapter.class)
     protected JobtitleEnum value;
+
+    public Jobtitle() {
+    }
+
+    public Jobtitle(JobtitleEnum value) {
+        this.value = value;
+    }
+
     /**
      * Gets the value of the value property.
      *
@@ -38,5 +45,16 @@ public class Jobtitle {
      */
     public void setValue(JobtitleEnum value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj == this){
+            return true;
+        }
+        if(obj instanceof Jobtitle){
+            return ((Jobtitle) obj).value.equals(value);
+        }
+        return false;
     }
 }
